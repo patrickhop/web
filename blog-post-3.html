@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale-1.0" />
   <title>The Future of AI is Open – Thinking Machines</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JwbLwouJtA95KDxCoP+KfUGfgMquTyOl7Nsn2NlQJpC+eTa12pi" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73UeIOkiCK+sV+GwsnvLd" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/showdown-katex@0.8.0/dist/showdown-katex.min.js"></script>
 </head>
 <body>
   <header class="blog-header">
@@ -33,7 +36,16 @@
       fetch('blogs/blog-post-3.md')
         .then(response => response.text())
         .then(text => {
-          const converter = new showdown.Converter({ tables: true });
+          const converter = new showdown.Converter({
+            extensions: [
+              showdownKatex({
+                delimiters: [
+                  { left: '$$', right: '$$', display: false }
+                ]
+              })
+            ],
+            tables: true
+          });
           const html = converter.makeHtml(text);
           document.getElementById('post-content').innerHTML = html;
         });

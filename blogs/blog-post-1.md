@@ -14,6 +14,8 @@ Here are some of the topics we'll be covering in this blog:
 *   **Technical Deep Dives:** In-depth explanations of complex AI concepts.
 *   **Product Announcements:** News about the products we're building.
 
+And here is an example of a LaTeX equation: $$a^2 + b^2 = c^2$$
+
 ### A Glimpse into Our Work
 
 Here is a simple Python function that demonstrates a basic machine learning concept:
