@@ -12,11 +12,11 @@ body {
 }
 header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 20px 20px;
   max-width: 960px;
   margin: 0 auto;
-  position: relative;
 }
 header h1 {
   font-size: 22px;
@@ -27,13 +27,12 @@ header h1 {
   text-transform: uppercase;
 }
 nav {
-  position: absolute;
-  top: 30px;
+  display: flex;
 }
 main {
   max-width: 680px;
   margin: 0 auto;
-  padding: 0 20px 100px;
+  padding: 0 20px 75px;
 }
 h2 {
   margin-top: 40px;
@@ -76,6 +75,9 @@ nav a:hover {
 
 .blog-main-title {
   text-align: left;
+  font-size: 26px;
+  font-weight: 400;
+  margin-bottom: 5px;
 }
 .post {
   display: flex;
@@ -103,7 +105,7 @@ nav a:hover {
   text-decoration: underline;
 }
 .main-header {
-  padding: 51.2px 40px 64px;
+  padding: 25.6px 40px 64px;
 }
 
 .main-header {
@@ -114,7 +116,7 @@ nav a:hover {
 }
 .blog-header {
   justify-content: space-between;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 20px;
 }
 
@@ -129,14 +131,10 @@ nav a:hover {
 
 .main-page-title {
   font-size: 20.4px;
-  margin-bottom: 9px;
+  margin-bottom: 7px;
 }
 
 @media (max-width: 768px) {
-  .blog-header nav {
-    position: absolute;
-  }
-
   main {
     padding: 0 20px 50px;
   }
