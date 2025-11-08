@@ -3,168 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Connectionism – Thinking Machines Lab</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #fff;
-      color: #222;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-
-    header {
-      padding: 40px 60px 20px;
-    }
-
-    header h1 {
-      font-size: 18px;
-      letter-spacing: 0.1em;
-      color: #777;
-      font-weight: 500;
-    }
-
-    nav {
-      position: absolute;
-      top: 40px;
-      right: 60px;
-    }
-
-    nav a {
-      margin-left: 20px;
-      font-size: 15px;
-      color: #555;
-      text-decoration: none;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      max-width: 720px;
-      margin: 40px auto 100px;
-      padding: 0 20px;
-    }
-
-    h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .subtitle {
-      font-style: italic;
-      color: #666;
-      margin-bottom: 40px;
-    }
-
-    .post {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 32px;
-    }
-
-    .date {
-      color: #666;
-      flex: 0 0 80px;
-      font-size: 15px;
-    }
-
-    .content {
-      flex: 1;
-      padding-left: 10px;
-    }
-
-    .title {
-      font-weight: 600;
-      color: #000;
-      font-size: 17px;
-      margin-bottom: 2px;
-    }
-
-    .author {
-      font-size: 15px;
-      color: #555;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      font-size: 14px;
-      color: #777;
-      border-top: 1px solid #eee;
-    }
-  </style>
+  <title>Blog – Thinking Machines</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <header>
-    <h1>THINKING MACHINES</h1>
+    <a href="index.html" style="text-decoration: none;"><h1>THINKING MACHINES</h1></a>
     <nav>
-      <a href="#">Tinker</a>
-      <a href="#">Blog</a>
-      <a href="#">Join us</a>
+      <a href="blog.html">Blog</a>
+      <a href="index.html#join-us">Join us</a>
     </nav>
   </header>
 
   <main>
-    <h2>Connectionism</h2>
-    <div class="subtitle">Shared science and news from the team</div>
+    <h2>Blog</h2>
+    <div class="blog-subtitle">Shared science and news from the team</div>
 
     <div class="post">
-      <div class="date">Nov 7</div>
-      <div class="content">
-        <div class="title">Tinker: Call for Community Projects</div>
-        <div class="author">Thinking Machines Lab</div>
+      <div class="post-date">Nov 15, 2025</div>
+      <div class="post-content">
+        <div class="post-title">Welcome to the Thinking Machines Blog</div>
+        <div class="post-author">The Team</div>
       </div>
     </div>
 
     <div class="post">
-      <div class="date">Oct 29</div>
-      <div class="content">
-        <div class="title">Announcing Tinker Research and Teaching Grants</div>
-        <div class="author">Thinking Machines Lab</div>
+      <div class="post-date">Nov 12, 2025</div>
+      <div class="post-content">
+        <div class="post-title">Our Vision for Thinking Machines</div>
+        <div class="post-author">The Team</div>
       </div>
     </div>
 
     <div class="post">
-      <div class="date">Oct 27</div>
-      <div class="content">
-        <div class="title">On-Policy Distillation</div>
-        <div class="author">Kevin Lu in collaboration with others at Thinking Machines</div>
+      <div class="post-date">Nov 10, 2025</div>
+      <div class="post-content">
+        <div class="post-title">The Future of AI is Open</div>
+        <div class="post-author">The Team</div>
       </div>
     </div>
 
     <div class="post">
-      <div class="date">Oct 1</div>
-      <div class="content">
-        <div class="title">Announcing Tinker</div>
-        <div class="author">Thinking Machines Lab</div>
+      <div class="post-date">Nov 7, 2025</div>
+      <div class="post-content">
+        <div class="post-title">Tinker: Call for Community Projects</div>
+        <div class="post-author">Thinking Machines Lab</div>
       </div>
     </div>
 
     <div class="post">
-      <div class="date">Sep 29</div>
-      <div class="content">
-        <div class="title">LoRA Without Regret</div>
-        <div class="author">John Schulman in collaboration with others at Thinking Machines</div>
+      <div class="post-date">Oct 29, 2025</div>
+      <div class="post-content">
+        <div class="post-title">Announcing Tinker Research and Teaching Grants</div>
+        <div class="post-author">Thinking Machines Lab</div>
       </div>
     </div>
 
     <div class="post">
-      <div class="date">Sep 26</div>
-      <div class="content">
-        <div class="title">Modular Manifolds</div>
-        <div class="author">Jeremy Bernstein</div>
+      <div class="post-date">Oct 27, 2025</div>
+      <div class="post-content">
+        <div class="post-title">On-Policy Distillation</div>
+        <div class="post-author">Kevin Lu</div>
       </div>
     </div>
 
     <div class="post">
-      <div class="date">Sep 10</div>
-      <div class="content">
-        <div class="title">Defeating Nondeterminism in LLM Inference</div>
-        <div class="author">Horace He in collaboration with others at Thinking Machines</div>
+      <div class="post-date">Oct 1, 2025</div>
+      <div class="post-content">
+        <div class="post-title">Announcing Tinker</div>
+        <div class="post-author">Thinking Machines Lab</div>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">Sep 29, 2025</div>
+      <div class="post-content">
+        <div class="post-title">LoRA Without Regret</div>
+        <div class="post-author">John Schulman</div>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">Sep 26, 2025</div>
+      <div class="post-content">
+        <div class="post-title">Modular Manifolds</div>
+        <div class="post-author">Jeremy Bernstein</div>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">Sep 10, 2025</div>
+      <div class="post-content">
+        <div class="post-title">Defeating Nondeterminism in LLM Inference</div>
+        <div class="post-author">Horace He</div>
       </div>
     </div>
   </main>

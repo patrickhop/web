@@ -1,0 +1,96 @@
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Georgia", serif;
+  background-color: #fdfdfd;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.8;
+  font-size: 18px;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 40px;
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+}
+header h1 {
+  font-size: 22px;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  color: #888;
+  margin: 0;
+  text-transform: uppercase;
+}
+nav {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px 100px;
+}
+h2 {
+  margin-top: 80px;
+  font-weight: normal;
+  font-size: 36px;
+  text-align: center;
+}
+p {
+  margin-bottom: 20px;
+}
+a {
+  color: #333;
+  text-decoration: underline;
+}
+footer {
+  text-align: center;
+  padding: 40px;
+  font-size: 14px;
+  color: #999;
+  border-top: 1px solid #eee;
+}
+nav a {
+  margin-left: 24px;
+  font-size: 16px;
+  color: #555;
+  text-decoration: none;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+.section {
+  margin-top: 80px;
+}
+.blog-subtitle {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.post {
+  display: flex;
+  margin-bottom: 32px;
+}
+.post-date {
+  color: #666;
+  flex: 0 0 100px;
+}
+.post-content {
+  flex: 1;
+}
+.post-title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+.post-author {
+  color: #555;
+}
