@@ -13,7 +13,7 @@ body {
 header {
   display: flex;
   align-items: center;
-  padding: 40px;
+  padding: 20px 40px;
   max-width: 960px;
   margin: 0 auto;
   position: relative;
@@ -29,7 +29,7 @@ header h1 {
 nav {
   position: absolute;
   top: 30px;
-  right: 30px;
+  right: 0px;
 }
 main {
   max-width: 680px;
@@ -66,13 +66,17 @@ nav a:hover {
   text-decoration: underline;
 }
 .section {
-  margin-top: 40px;
+  margin-top: 16px;
 }
 .blog-subtitle {
   font-style: italic;
   color: #666;
   margin-bottom: 40px;
-  text-align: center;
+  text-align: left;
+}
+
+.blog-main-title {
+  text-align: left;
 }
 .post {
   display: flex;
@@ -94,10 +98,29 @@ nav a:hover {
 .post-author {
   color: #555;
 }
+.post-title:hover {
+  text-decoration: underline;
+}
 .main-header {
   justify-content: center;
   padding: 80px 40px;
 }
 .blog-header {
-  justify-content: flex-start;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.blog-header nav {
+  position: static;
+}
+
+.blog-logo {
+  font-size: 18px;
+  margin-left: -40px;
+}
+
+.main-page-title {
+  font-size: 24px;
+  margin-bottom: 16px;
 }
