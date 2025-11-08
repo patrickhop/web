@@ -16,6 +16,18 @@ header {
   align-items: center;
   padding: 20px 40px;
 }
+@keyframes pulse {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 header h1 {
   font-size: 18px;
   font-weight: normal;
@@ -23,6 +35,11 @@ header h1 {
   color: #888;
   margin: 0;
   text-transform: uppercase;
+  background: linear-gradient(45deg, black, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: pulse 5s ease-in-out infinite;
 }
 nav {
   display: flex;
@@ -101,29 +118,29 @@ nav a:hover {
   color: #555;
   font-size: 15px;
 }
+
+.post-content h2:first-child {
+  margin-top: 10px;
+}
 .post-title:hover {
   text-decoration: underline;
 }
-.main-header {
+
+.blog-main {
+  margin-top: 10px;
+}
+
+.main-page {
+  margin-top: 60px;
+}
+.main-header, .blog-header {
   padding: 12.8px 40px 32px;
 }
-.main-header nav {
-  position: static;
-}
-.blog-header {
-  justify-content: space-between;
-  padding-top: 10px;
-  padding-bottom: 20px;
-}
 
-.blog-header nav {
+.main-header nav, .blog-header nav {
   position: static;
 }
 
-.blog-logo {
-  font-size: 18px;
-  margin-left: -40px;
-}
 
 .main-page-title {
   font-size: 20.4px;
@@ -135,7 +152,7 @@ nav a:hover {
     padding: 0 20px 50px;
   }
 
-  .main-header {
+  .main-header, .blog-header {
     padding: 40px 20px;
   }
 
@@ -150,5 +167,11 @@ nav a:hover {
 
   .post-content {
     margin-left: 0;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
   }
 }
