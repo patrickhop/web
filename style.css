@@ -35,10 +35,10 @@ header h1 {
   color: #888;
   margin: 0;
   text-transform: uppercase;
-  background: linear-gradient(45deg, black, #333);
+  background: linear-gradient(45deg, red, blue, red);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 200% 200%;
+  background-size: 300% 300%;
   animation: pulse 5s ease-in-out infinite;
 }
 nav {
