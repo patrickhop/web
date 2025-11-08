@@ -29,7 +29,7 @@ header h1 {
 nav {
   position: absolute;
   top: 30px;
-  right: 0px;
+  right: 40px;
 }
 main {
   max-width: 680px;
@@ -91,19 +91,26 @@ nav a:hover {
   margin-left: 20px;
 }
 .post-title {
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 18px;
   margin-bottom: 4px;
+  text-decoration: underline;
+  text-decoration-color: #ccc;
+  text-decoration-thickness: 1px;
 }
 .post-author {
   color: #555;
+  font-size: 15px;
 }
 .post-title:hover {
-  text-decoration: underline;
+  text-decoration-color: #333;
 }
 .main-header {
-  justify-content: center;
-  padding: 80px 40px;
+  padding: 51.2px 40px 64px;
+}
+
+.main-header h1 {
+  margin: 0 auto;
 }
 .blog-header {
   justify-content: space-between;
@@ -121,6 +128,33 @@ nav a:hover {
 }
 
 .main-page-title {
-  font-size: 24px;
-  margin-bottom: 16px;
+  font-size: 20.4px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  .blog-header nav {
+    position: absolute;
+  }
+
+  main {
+    padding: 0 20px 50px;
+  }
+
+  .main-header {
+    padding: 40px 20px;
+  }
+
+  .post {
+    flex-direction: column;
+  }
+
+  .post-date {
+    flex-basis: auto;
+    margin-bottom: 10px;
+  }
+
+  .post-content {
+    margin-left: 0;
+  }
 }
