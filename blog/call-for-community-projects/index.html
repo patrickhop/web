@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <meta name="author" content="">
+
+  
+  
+  <meta name="description" content="Announcing Tinker Community Projects">
+  
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+
+  
+  
+  
+  <link rel="preload" href="/fonts/iowan-old-style/iowan-old-style_regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" fetchpriority="high">
+  <link rel="preload" href="/fonts/iowan-old-style/iowan-old-style_bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/iowan-old-style/iowan-old-style_italic.woff2" as="font" type="font/woff2" crossorigin="anonymous" fetchpriority="high">
+  
+  
+  <link rel="preload" href="/fonts/gt-america/GT-America-Standard-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/gt-america/GT-America-Standard-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/gt-america/GT-America-Standard-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/chakra-petch/chakra-petch-v12-latin-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/chakra-petch/chakra-petch-v12-latin-500.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/chakra-petch/chakra-petch-v12-latin-600.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+  
+  
+  <meta name="keywords" content='thinky thinkingmachines machine learning deep learning ai'>
+  
+
+  
+  
+  
+
+<script>
+  
+  (function() {
+    function pageHasMath() {
+      try {
+        const text = document.body ? document.body.textContent : '';
+        if (!text) return false;
+        
+        const block = /\$\$[\s\S]*?\$\$/;
+        const paren = /\\\([\s\S]*?\\\)/;
+        const bracket = /\\\[[\s\S]*?\\\]/;
+        const inline = /(^|\s)\$(?!\$)[^\n]+?\$(?=\s|[\.,;:!?)]|$)/;
+        return block.test(text) || paren.test(text) || bracket.test(text) || inline.test(text);
+      } catch (e) {
+        return true; 
+      }
+    }
+
+    function loadStyle(href) {
+      var preload = document.createElement('link');
+      preload.rel = 'preload';
+      preload.as = 'style';
+      preload.href = href;
+      document.head.appendChild(preload);
+
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.media = 'print';
+      link.onload = function(){ this.media = 'all'; };
+      document.head.appendChild(link);
+
+      var noscript = document.createElement('noscript');
+      noscript.innerHTML = '<link rel="stylesheet" href="' + href + '">';
+      document.head.appendChild(noscript);
+    }
+
+    function loadScript(src) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    function renderAllMath(root) {
+      if (!window.renderMathInElement) return;
+      window.renderMathInElement(root || document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError: false,
+        
+        ignoredTags: ['script','noscript','style','textarea','pre','code'],
+      });
+    }
+
+    function init() {
+      if (!pageHasMath()) return;
+      var base = '\/katex\/';
+      var cssHref = base + 'katex.min.css?v=1762541520';
+      var katexJs = base + 'katex.min.js?v=1762541520';
+      var autorenderJs = base + 'contrib/auto-render.min.js?v=1762541520';
+
+      loadStyle(cssHref);
+      loadScript(katexJs)
+        .then(function(){ return loadScript(autorenderJs); })
+        .then(function(){
+          
+          renderAllMath(document.body);
+          
+          setTimeout(function(){ renderAllMath(document.body); }, 0);
+          
+          try {
+            var observer = new MutationObserver(function(mutations){
+              for (var i=0; i<mutations.length; i++) {
+                var m = mutations[i];
+                if (m.addedNodes && m.addedNodes.length) {
+                  for (var j=0; j<m.addedNodes.length; j++) {
+                    var node = m.addedNodes[j];
+                    if (node.nodeType === 1) {
+                      renderAllMath(node);
+                    }
+                  }
+                }
+              }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+          } catch (e) {   }
+        })
+        .catch(function(){   });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+
+  
+
+  
+  
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+
+  
+  <link rel="canonical" href="https://thinkingmachines.ai/blog/call-for-community-projects/">
+
+  
+  
+  
+  <meta itemprop="name" content="Tinker: Call for Community Projects">
+  <meta itemprop="description" content="Announcing Tinker Community Projects">
+  <meta itemprop="datePublished" content="2025-11-07T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-11-07T00:00:00+00:00">
+  <meta itemprop="wordCount" content="898">
+
+
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/common.css?v=1762541520" fetchpriority="high">
+  
+  <link rel="stylesheet" href="https://thinkingmachines.ai/css/ui.css?v=1762541520">
+  
+  <link rel="preload" as="style" href="/css/typography.css?v=1762541520">
+  <link rel="stylesheet" href="/css/typography.css?v=1762541520" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/typography.css?v=1762541520"></noscript>
+  
+  <link rel="preload" as="style" href="/css/fonts.css?v=1762541520">
+  <link rel="stylesheet" href="/css/fonts.css?v=1762541520" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/fonts.css?v=1762541520"></noscript>
+  <link rel="preload" as="style" href="/css/syntax.css?v=1762541520">
+  <link rel="stylesheet" href="/css/syntax.css?v=1762541520" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/syntax.css?v=1762541520"></noscript>
+
+  
+  
+  <title>Tinker: Call for Community Projects - Thinking Machines Lab</title>
+  
+
+  
+  
+  
+  
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+  
+
+  
+  <meta property="og:title" content="Tinker: Call for Community Projects">
+  <meta property="og:description" content="Announcing Tinker Community Projects">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thinkingmachines.ai/blog/call-for-community-projects/">
+  <meta property="og:site_name" content="Thinking Machines Lab">
+  <meta property="og:image" content="https://thinkingmachines.ai/images/home.png">
+  
+  
+  <meta property="og:image:alt" content="Tinker: Call for Community Projects">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tinker: Call for Community Projects">
+  <meta name="twitter:description" content="Announcing Tinker Community Projects">
+  <meta name="twitter:image" content="https://thinkingmachines.ai/images/home.png">
+  
+  
+  <meta name="twitter:image:alt" content="Tinker: Call for Community Projects">
+
+  
+
+
+
+
+<link rel="preload" as="style" href="https://thinkingmachines.ai/css/blog-post.css?v=1762541520">
+<link rel="stylesheet" href="https://thinkingmachines.ai/css/blog-post.css?v=1762541520" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://thinkingmachines.ai/css/blog-post.css?v=1762541520"></noscript>
+
+
+
+</head>
+
+<body>
+  <div id="wrapper">
+    
+
+
+
+
+
+
+<header id="header">
+  
+  <div id="site-header" class="site-header">
+    
+    
+    <div class="navbar-logo">
+      <a href="/">THINKING MACHINES</a>
+    </div>
+    
+
+    
+    <div class="nav-group">
+      
+      <nav class="top-nav">
+        
+        <a href="/tinker/">Tinker</a>
+        
+        <a href="/blog/">Blog</a>
+        <a href="/#join-us">Join us</a>
+      </nav>
+
+      
+      <button id="menu-toggle" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+    </div>
+  </div>
+  
+  
+  <div id="mobile-menu" class="mobile-menu-overlay" aria-hidden="true">
+    <nav class="mobile-menu-nav" role="navigation" aria-label="Mobile">
+      <a href="/">Home</a>
+        
+        <a href="/tinker/">Tinker</a>
+        
+      <a href="/blog/">Blog</a>
+      <a href="/#join-us">Join us</a>
+    </nav>
+  </div>
+  
+  
+</header>
+
+
+
+    
+<main id="main" class="post">
+  
+  
+  
+  
+  
+  
+  
+  <div class="post-heading">
+    <h1 class="post-title">Tinker: Call for Community Projects</h1>
+    
+    <div class="publish-metadata">
+      
+      
+      <span class="author">
+        
+        <a href="https://thinkingmachines.ai" rel="me noopener" target="_blank">Thinking Machines Lab</a>
+        
+      </span>
+      
+
+      
+      <span>
+        Nov 7, 2025
+      </span>
+
+      
+
+      
+
+      
+    </div>
+  </div>
+
+  
+
+  
+
+  
+
+  <article class="content ">
+    
+    <nav id="left-toc" class="left-toc" aria-label="Table of contents"></nav>
+    
+    <p>We launched <a href="https://thinkingmachines.ai/tinker/">Tinker</a> to enable builders and researchers to train models their own way, whether they’re conducting studies or customizing models for new applications. We plan to publish regular roundups of the coolest projects from the Tinker community, and <strong>we invite you to submit what you’ve been Tinkering on to be featured on our blog</strong>.</p>
+<p>Below are some broad suggestions for what we hope to see from the Tinker featured projects, and some specific research directions we would particularly love to see pursued.</p>
+<h2 id="guidelines-for-tinker-featured-projects">Guidelines for Tinker Featured Projects</h2>
+<p>We’re interested in featuring ML research projects, AI-enabled research in other domains, custom models, and other contributions. Some examples:</p>
+<ul>
+<li>A reimplementation of a research project or tech report using Tinker, such as papers that compare algorithmic recipes or datasets.</li>
+<li>Original research in machine learning, such as exploring new approaches to training or optimization or applying novel benchmarks and evaluations.</li>
+<li>Research in a non-AI field that uses fine-tuned models, such as the work on mathematical theorem provers and chemistry models we <a href="https://thinkingmachines.ai/blog/announcing-tinker/#:~:text=Groups%20at%20Princeton%2C%20Stanford">highlighted previously</a>.</li>
+<li>Product prototypes built with Tinker, demoing a model that does something fresh or delightful.</li>
+<li>Novel datasets and task environments for training models.</li>
+<li>High-level libraries built on top of Tinker that enable less experienced practitioners to perform fine-tuning effectively.</li>
+<li>Infrastructure contributions, such as a clean self-hosted implementation of the Tinker training API.</li>
+</ul>
+<p>Your submission should include a write-up and, preferably, an open-source release of your code. We encourage you to focus on rigor and clear evaluation in your write-ups: crisp charts, raw output examples, clear comparisons to alternative approaches or models on relevant benchmarks and metrics. Tinkering is experimenting — we want to feature diligent work and transparent results over novelty or hype.</p>
+<p>Please send your projects and any related questions to <a href="/cdn-cgi/l/email-protection#34405d5a5f514674405c5d5a5f5d5a535955575c5d5a51471a555d0b4741565e51574009725155404146515011060464465b5e515740110604"><span class="__cf_email__" data-cfemail="ea9e8384818f98aa9e8283848183848d878b898283848f99c48b83">[email&#160;protected]</span></a> with &ldquo;Featured Project&rdquo; in the subject line.</p>
+<h2 id="suggested-research-projects">Suggested research projects</h2>
+<p>Here are some research directions that we would personally love to see explored and that Tinker can enable real progress on. We have <a href="https://github.com/thinking-machines-lab/tinker-project-ideas">created a repo</a> with detailed motivation and guidelines for each; we’ll be adding more resources to it over time to help researchers get started. We expect most project ideas to surprise us, but this short list could serve as inspiration.</p>
+<p><strong><a href="https://github.com/thinking-machines-lab/tinker-project-ideas/blob/main/replicate-cai-with-base-models.md">Replicating Constitutional AI, starting from the base model.</a></strong> Though RLAIF is widely used, it’s most often bootstrapped from existing instruction-tuned models. This makes it difficult to separate the impact of the constitution from the impact of the data-generating model that interprets it. A study of Constitutional AI with and without instruction-tuned models in the pipeline would shed light on the use of constitutions and RLAIF.</p>
+<p><strong><a href="https://github.com/thinking-machines-lab/tinker-project-ideas/blob/main/noisy-student.md">RLVR with Noisy student.</a></strong> Noisy student self-distillation was a popular technique in an earlier era of machine learning for making use of large unlabeled datasets, but it hasn’t been adapted widely to LLMs. One possible adaptation is to start RLVR with a small labeled training set and a large unlabeled one, then have the student apply labels to the latter set after each RL run and iterate.</p>
+<p><strong><a href="https://github.com/thinking-machines-lab/tinker-project-ideas/blob/main/on-policy-context-distillation.md">On-Policy Context Distillation.</a></strong> Context distillation trains a student model with empty context on a teacher model with long and detailed context. Prior work used off-policy distillation — fine-tuning on teacher samples. We have found that <a href="https://thinkingmachines.ai/blog/on-policy-distillation/">on-policy distillation</a> is often much more effective; it would be useful to compare the two approaches for context distillation in particular.</p>
+<p><strong><a href="https://github.com/thinking-machines-lab/tinker-project-ideas/blob/main/memorization-empirical-study.md">RL memory test.</a></strong> Our <a href="https://thinkingmachines.ai/blog/lora/">post on LoRA</a> presented theoretical arguments on the rate of information acquisition by both SFT and RL. You can set up a toy environment where RL must learn a completely random number sequence, to compare the empirical learning rate under various reward functions to the theoretical estimate.</p>
+<p><strong><a href="https://github.com/thinking-machines-lab/tinker-project-ideas/blob/main/direct-rl-on-pairwise-judge.md">Direct RL on pairwise judge.</a></strong> RLHF and RLAIF use datasets of pairwise preferences, which are used to train a reward model, which is then used in RL. As an alternative &ldquo;direct&rdquo; approach, we can do RL using a prompted model that does pairwise comparisons, without training the reward model. It would be interesting to do experiments comparing the direct and indirect approaches.</p>
+<p><strong><a href="https://github.com/thinking-machines-lab/tinker-project-ideas/blob/main/replicate-open-character-training.md">Replicate Open Character Training.</a></strong> Replicate the recent paper on <a href="https://arxiv.org/abs/2511.01689">Open Character Training</a> using Tinker.</p>
+<p><strong><a href="https://github.com/thinking-machines-lab/tinker-project-ideas/blob/main/gan-joke-generation.md">GAN for jokes.</a></strong> In domains such as humor, it is easier to curate a human-vetted set of demonstrations than to train a reliable judge or reward model. Try implementing GAN-style training for a joke evaluator and joke generator that can craft a joke with a requested subject and keywords.</p>
+<h2 id="tips-for-high-quality-ml-experiments">Tips for high-quality ML experiments</h2>
+<p>In closing, we want to offer a few guidelines for running quality ML studies, the same guidelines we strive to adhere to internally when running experiments and documenting the results.</p>
+<p>We encourage researchers to apply multiple analyses for examining each result. When creating datasets or environments, we recommend training a range of models and applying different evals. When developing novel methods, we suggest comparing to simpler baseline methods and sweeping hyperparameters that performance is sensitive to, particularly learning rate.</p>
+<p>We’d love to see your reasoning in the write-up: assumptions you made, how your approach diverges from previous reports, and what motivated each change. We hope to see examples of the raw data and model rollouts, along with the summarized results. Finally, we appreciate crisp and detailed write-ups with clean and well-labeled charts and illustrations of the inner workings of the methods used.</p>
+<p>We are excited to see what our community creates with Tinker, and hope that our featured projects will inspire your own work.</p>
+
+    
+  </article>
+
+  <div class="paginator">
+    
+    <a class="link" href="https://thinkingmachines.ai/blog/tinker-research-and-teaching-grants/" title="Announcing Tinker Research and Teaching Grants">prev</a>
+    
+
+    <a href="#" id="back-to-top" class="link" title="Go to top">back to top</a>
+
+    
+    <a></a>
+    
+  </div>
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      const prevLink = document.querySelector('.paginator a:first-child');
+      const nextLink = document.querySelector('.paginator a:last-child');
+
+      const prevUrl = prevLink && prevLink.href !== window.location.href ? prevLink.href : null;
+      const nextUrl = nextLink && nextLink.href !== window.location.href ? nextLink.href : null;
+
+      
+      document.addEventListener('keydown', function(e) {
+        
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+          return;
+        }
+
+        
+        if (e.keyCode === 37 && prevUrl) {
+          e.preventDefault();
+          window.location.href = prevUrl;
+        }
+
+        
+        if (e.keyCode === 39 && nextUrl) {
+          e.preventDefault();
+          window.location.href = nextUrl;
+        }
+      });
+    });
+  </script>
+  
+
+  
+  
+</main>
+
+    <footer id="footer">
+  <div>
+    <span><a href="/">Thinking Machines Lab</a> © 2025</span><span class="footer-separator" id="first-footer-separator">·</span><span><a href="/legal/terms">Terms of service</a></span><span class="footer-separator">·</span><span><a href="/legal/privacy">Privacy notice</a></span>
+  </div>
+</footer>
+  </div>
+
+  
+  
+  <script src="/js/script.min.4093dc550c9ad99ac0e65f35825652be69a5baa12f3740fed8f70266298353f6.js" integrity="sha256-QJPcVQya2ZrA5l81glZSvmmluqEvN0D&#43;2PcCZimDU/Y=" defer></script>
+
+  
+  
+
+  
+  
+
+  
+  
+
+</body>
+
+</html>

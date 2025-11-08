@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <meta name="author" content="">
+
+  
+  
+  <meta name="description" content="Introducing Tinker: a flexible API for fine-tuning language models.">
+  
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+
+  
+  
+  
+  <link rel="preload" href="/fonts/iowan-old-style/iowan-old-style_regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" fetchpriority="high">
+  <link rel="preload" href="/fonts/iowan-old-style/iowan-old-style_bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/iowan-old-style/iowan-old-style_italic.woff2" as="font" type="font/woff2" crossorigin="anonymous" fetchpriority="high">
+  
+  
+  <link rel="preload" href="/fonts/gt-america/GT-America-Standard-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/gt-america/GT-America-Standard-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/gt-america/GT-America-Standard-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/chakra-petch/chakra-petch-v12-latin-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/chakra-petch/chakra-petch-v12-latin-500.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/fonts/chakra-petch/chakra-petch-v12-latin-600.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+  
+  
+  <meta name="keywords" content='thinky thinkingmachines machine learning deep learning ai'>
+  
+
+  
+  
+  
+
+<script>
+  
+  (function() {
+    function pageHasMath() {
+      try {
+        const text = document.body ? document.body.textContent : '';
+        if (!text) return false;
+        
+        const block = /\$\$[\s\S]*?\$\$/;
+        const paren = /\\\([\s\S]*?\\\)/;
+        const bracket = /\\\[[\s\S]*?\\\]/;
+        const inline = /(^|\s)\$(?!\$)[^\n]+?\$(?=\s|[\.,;:!?)]|$)/;
+        return block.test(text) || paren.test(text) || bracket.test(text) || inline.test(text);
+      } catch (e) {
+        return true; 
+      }
+    }
+
+    function loadStyle(href) {
+      var preload = document.createElement('link');
+      preload.rel = 'preload';
+      preload.as = 'style';
+      preload.href = href;
+      document.head.appendChild(preload);
+
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.media = 'print';
+      link.onload = function(){ this.media = 'all'; };
+      document.head.appendChild(link);
+
+      var noscript = document.createElement('noscript');
+      noscript.innerHTML = '<link rel="stylesheet" href="' + href + '">';
+      document.head.appendChild(noscript);
+    }
+
+    function loadScript(src) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    function renderAllMath(root) {
+      if (!window.renderMathInElement) return;
+      window.renderMathInElement(root || document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError: false,
+        
+        ignoredTags: ['script','noscript','style','textarea','pre','code'],
+      });
+    }
+
+    function init() {
+      if (!pageHasMath()) return;
+      var base = '\/katex\/';
+      var cssHref = base + 'katex.min.css?v=1762541520';
+      var katexJs = base + 'katex.min.js?v=1762541520';
+      var autorenderJs = base + 'contrib/auto-render.min.js?v=1762541520';
+
+      loadStyle(cssHref);
+      loadScript(katexJs)
+        .then(function(){ return loadScript(autorenderJs); })
+        .then(function(){
+          
+          renderAllMath(document.body);
+          
+          setTimeout(function(){ renderAllMath(document.body); }, 0);
+          
+          try {
+            var observer = new MutationObserver(function(mutations){
+              for (var i=0; i<mutations.length; i++) {
+                var m = mutations[i];
+                if (m.addedNodes && m.addedNodes.length) {
+                  for (var j=0; j<m.addedNodes.length; j++) {
+                    var node = m.addedNodes[j];
+                    if (node.nodeType === 1) {
+                      renderAllMath(node);
+                    }
+                  }
+                }
+              }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+          } catch (e) {   }
+        })
+        .catch(function(){   });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+
+  
+
+  
+  
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+
+  
+  <link rel="canonical" href="https://thinkingmachines.ai/blog/announcing-tinker/">
+
+  
+  
+  
+  <meta itemprop="name" content="Announcing Tinker">
+  <meta itemprop="description" content="Introducing Tinker: a flexible API for fine-tuning language models.">
+  <meta itemprop="datePublished" content="2025-10-01T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-10-01T00:00:00+00:00">
+  <meta itemprop="wordCount" content="350">
+
+
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/common.css?v=1762541520" fetchpriority="high">
+  
+  <link rel="stylesheet" href="https://thinkingmachines.ai/css/ui.css?v=1762541520">
+  
+  <link rel="preload" as="style" href="/css/typography.css?v=1762541520">
+  <link rel="stylesheet" href="/css/typography.css?v=1762541520" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/typography.css?v=1762541520"></noscript>
+  
+  <link rel="preload" as="style" href="/css/fonts.css?v=1762541520">
+  <link rel="stylesheet" href="/css/fonts.css?v=1762541520" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/fonts.css?v=1762541520"></noscript>
+  <link rel="preload" as="style" href="/css/syntax.css?v=1762541520">
+  <link rel="stylesheet" href="/css/syntax.css?v=1762541520" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/syntax.css?v=1762541520"></noscript>
+
+  
+  
+  <title>Announcing Tinker - Thinking Machines Lab</title>
+  
+
+  
+  
+  
+  
+  
+  
+    
+    
+    
+      
+        
+          
+          
+          
+          
+        
+      
+    
+  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+  
+
+  
+  <meta property="og:title" content="Announcing Tinker">
+  <meta property="og:description" content="Introducing Tinker: a flexible API for fine-tuning language models.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thinkingmachines.ai/blog/announcing-tinker/">
+  <meta property="og:site_name" content="Thinking Machines Lab">
+  <meta property="og:image" content="https://thinkingmachines.ai/blog/announcing-tinker/images/tinker-cover-social.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1050">
+  <meta property="og:image:alt" content="Announcing Tinker">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Announcing Tinker">
+  <meta name="twitter:description" content="Introducing Tinker: a flexible API for fine-tuning language models.">
+  <meta name="twitter:image" content="https://thinkingmachines.ai/blog/announcing-tinker/images/tinker-cover-social.png">
+  <meta name="twitter:image:width" content="2000">
+  <meta name="twitter:image:height" content="1050">
+  <meta name="twitter:image:alt" content="Announcing Tinker">
+
+  
+
+
+
+
+<link rel="preload" as="style" href="https://thinkingmachines.ai/css/blog-post.css?v=1762541520">
+<link rel="stylesheet" href="https://thinkingmachines.ai/css/blog-post.css?v=1762541520" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://thinkingmachines.ai/css/blog-post.css?v=1762541520"></noscript>
+
+
+
+</head>
+
+<body>
+  <div id="wrapper">
+    
+
+
+
+
+
+
+<header id="header">
+  
+  <div id="site-header" class="site-header">
+    
+    
+    <div class="navbar-logo">
+      <a href="/">THINKING MACHINES</a>
+    </div>
+    
+
+    
+    <div class="nav-group">
+      
+      <nav class="top-nav">
+        
+        <a href="/tinker/">Tinker</a>
+        
+        <a href="/blog/">Blog</a>
+        <a href="/#join-us">Join us</a>
+      </nav>
+
+      
+      <button id="menu-toggle" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+    </div>
+  </div>
+  
+  
+  <div id="mobile-menu" class="mobile-menu-overlay" aria-hidden="true">
+    <nav class="mobile-menu-nav" role="navigation" aria-label="Mobile">
+      <a href="/">Home</a>
+        
+        <a href="/tinker/">Tinker</a>
+        
+      <a href="/blog/">Blog</a>
+      <a href="/#join-us">Join us</a>
+    </nav>
+  </div>
+  
+  
+</header>
+
+
+
+    
+<main id="main" class="post">
+  
+  
+  
+  
+  
+  
+  
+  <div class="post-heading">
+    <h1 class="post-title">Announcing Tinker</h1>
+    
+    <div class="publish-metadata">
+      
+      
+      <span class="author">
+        
+        <a href="https://thinkingmachines.ai" rel="me noopener" target="_blank">Thinking Machines Lab</a>
+        
+      </span>
+      
+
+      
+      <span>
+        Oct 1, 2025
+      </span>
+
+      
+
+      
+
+      
+    </div>
+  </div>
+
+  
+
+  
+  <div class="post-cover">
+    
+      
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="820" height="512" fill="none" viewBox="0 0 820 512"><path fill="#fff" d="M0 0h820v512H0z"/><path fill="#ffce52" d="m618.852 46 1.414-1.414 33.941 33.94-1.414 1.415z"/><path fill="#ffce52" d="M679.797 44.586 681.21 46l-33.94 33.941-1.414-1.414z"/><path fill="#73bb83" d="M233 75h120v2H233z"/><path fill="#73bb83" d="M463 75h120v2H463z"/><path fill="#73bb83" d="M233 195h120v2H233z"/><path fill="#73bb83" d="M463 195h120v2H463z"/><path fill="#ff9d52" d="M110 75h120v2H110z"/><path fill="#ff9d52" d="M140 45h60v2h-60z"/><path fill="#ff9d52" d="M380 45h60v2h-60z"/><path fill="#ff9d52" d="M620 45h60v2h-60z"/><path fill="#ff9d52" d="M110 135h120v2H110z"/><path fill="#ff9d52" d="M110 195h120v2H110z"/><path fill="#4196d8" d="M169 74h2v120h-2z"/><path fill="#d34f4f" d="m230.805 134 1.414 1.414-63.64 63.64-1.414-1.414z"/><path fill="#d34f4f" d="M174.234 80.414 175.648 79l56.569 56.568-1.415 1.415z"/><path fill="#d34f4f" d="M235.234 82.414 236.648 81l113.137 113.137-1.414 1.414z"/><path fill="#d34f4f" d="m235.234 202.414 1.414-1.414 113.137 113.137-1.414 1.414z"/><path fill="#4196d8" d="m115.234 202.414 1.414-1.414 113.137 113.137-1.414 1.414z"/><path fill="#4196d8" d="m355.234 202.414 1.414-1.414 113.137 113.137-1.414 1.414z"/><path fill="#4196d8" d="m595.234 202.414 1.414-1.414 113.137 113.137-1.414 1.414z"/><path fill="#d34f4f" d="m475.234 202.414 1.414-1.414 113.137 113.137-1.414 1.414z"/><path fill="#d34f4f" d="M473.234 80.414 474.648 79l120.208 120.208-1.414 1.414z"/><path fill="#d34f4f" d="m109.234 137 1.414-1.414 56.569 56.568-1.414 1.415z"/><path fill="#d34f4f" d="M167.805 75.586 169.219 77l-56.568 56.569-1.415-1.414z"/><path fill="#ffce52" d="M139.797 44.586 141.21 46l-33.94 33.941-1.414-1.414z"/><path fill="#ffce52" d="m138.852 46 1.414-1.414 33.941 33.94-1.414 1.415z"/><path fill="#ffce52" d="m378.852 46 1.414-1.414 33.941 33.94-1.414 1.415z"/><path fill="#ffce52" d="m198.844 46 1.414-1.414 33.941 33.94-1.414 1.415z"/><path fill="#ffce52" d="m438.844 46 1.414-1.414 33.941 33.94-1.414 1.415z"/><path fill="#ffce52" d="m678.844 46 1.414-1.414 33.941 33.94-1.414 1.415z"/><path fill="#ffce52" d="M199.797 44.586 201.21 46l-33.94 33.941-1.414-1.414z"/><path fill="#ffce52" d="M379.797 44.586 381.21 46l-33.94 33.941-1.414-1.414z"/><path fill="#ffce52" d="M439.797 44.586 441.21 46l-33.94 33.941-1.414-1.414z"/><path fill="#ffce52" d="M619.797 44.586 621.21 46l-33.94 33.941-1.414-1.414z"/><path fill="#d34f4f" d="M348.805 75.586 350.219 77 230.011 197.208l-1.414-1.414z"/><path fill="#d34f4f" d="m348.805 195.586 1.414 1.414-120.208 120.208-1.414-1.414z"/><path fill="#d34f4f" d="m588.805 195.586 1.414 1.414-120.208 120.208-1.414-1.414z"/><path fill="#d34f4f" d="M588.805 75.586 590.219 77 470.011 197.208l-1.414-1.414z"/><path fill="#ff9d52" d="M109 74h2v120h-2z"/><path fill="#ff9d52" d="M229 74h2v120h-2z"/><circle cx="110" cy="76" r="7.5" fill="url(#paint0_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="110" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="140" cy="76" r="7.5" fill="url(#paint1_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="140" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="170" cy="76" r="7.5" fill="url(#paint2_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="170" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="200" cy="76" r="7.5" fill="url(#paint3_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="200" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="230" cy="76" r="7.5" fill="url(#paint4_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="230" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="140" cy="136" r="7.5" fill="url(#paint5_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="140" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="200" cy="136" r="7.5" fill="url(#paint6_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="200" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="170" cy="136" r="7.5" fill="url(#paint7_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="170" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="230" cy="106" r="7.5" fill="url(#paint8_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="230" cy="106" r="1" fill="#000" fill-opacity=".4"/><circle cx="110" cy="106" r="7.5" fill="url(#paint9_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="110" cy="106" r="1" fill="#000" fill-opacity=".4"/><circle cx="230" cy="136" r="7.5" fill="url(#paint10_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="230" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="110" cy="136" r="7.5" fill="url(#paint11_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="110" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="230" cy="166" r="7.5" fill="url(#paint12_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="230" cy="166" r="1" fill="#000" fill-opacity=".4"/><circle cx="110" cy="166" r="7.5" fill="url(#paint13_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="110" cy="166" r="1" fill="#000" fill-opacity=".4"/><circle cx="290" cy="136" r="7.5" fill="url(#paint14_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="290" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="290" cy="256" r="7.5" fill="url(#paint15_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="290" cy="256" r="1" fill="#000" fill-opacity=".4"/><circle cx="530" cy="256" r="7.5" fill="url(#paint16_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="530" cy="256" r="1" fill="#000" fill-opacity=".4"/><path fill="#ff9d52" d="M350 75h120v2H350z"/><path fill="#ff9d52" d="M350 135h120v2H350z"/><path fill="#ff9d52" d="M350 195h120v2H350z"/><path fill="#4196d8" d="M409 74h2v120h-2z"/><path fill="#d34f4f" d="m470.805 134 1.414 1.414-56.568 56.569-1.415-1.414z"/><path fill="#d34f4f" d="M414.234 81.414 415.648 80l56.569 56.568-1.415 1.415z"/><path fill="#d34f4f" d="m349.234 137 1.414-1.414 56.569 56.568-1.414 1.415z"/><path fill="#d34f4f" d="M408.789 75.586 410.203 77l-56.568 56.569-1.415-1.414z"/><path fill="#ff9d52" d="M349 74h2v120h-2z"/><path fill="#73bb83" d="M349 204h2v120h-2z"/><path fill="#73bb83" d="M229 204h2v120h-2z"/><path fill="#73bb83" d="M109 204h2v120h-2z"/><path fill="#73bb83" d="M469 204h2v120h-2z"/><path fill="#73bb83" d="M709 204h2v120h-2z"/><path fill="#73bb83" d="M589 204h2v120h-2z"/><path fill="#ff9d52" d="M469 74h2v120h-2z"/><circle cx="350" cy="76" r="7.5" fill="url(#paint17_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="350" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="380" cy="76" r="7.5" fill="url(#paint18_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="380" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="410" cy="76" r="7.5" fill="url(#paint19_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="410" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="440" cy="76" r="7.5" fill="url(#paint20_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="440" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="470" cy="76" r="7.5" fill="url(#paint21_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="470" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="380" cy="136" r="7.5" fill="url(#paint22_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="380" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="440" cy="136" r="7.5" fill="url(#paint23_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="440" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="410" cy="136" r="7.5" fill="url(#paint24_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="410" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="470" cy="106" r="7.5" fill="url(#paint25_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="470" cy="106" r="1" fill="#000" fill-opacity=".4"/><circle cx="350" cy="106" r="7.5" fill="url(#paint26_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="350" cy="106" r="1" fill="#000" fill-opacity=".4"/><circle cx="470" cy="136" r="7.5" fill="url(#paint27_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="470" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="350" cy="136" r="7.5" fill="url(#paint28_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="350" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="470" cy="166" r="7.5" fill="url(#paint29_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="470" cy="166" r="1" fill="#000" fill-opacity=".4"/><circle cx="350" cy="166" r="7.5" fill="url(#paint30_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="350" cy="166" r="1" fill="#000" fill-opacity=".4"/><circle cx="350" cy="196" r="7.5" fill="url(#paint31_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="350" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="380" cy="196" r="7.5" fill="url(#paint32_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="380" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="410" cy="196" r="7.5" fill="url(#paint33_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="410" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="440" cy="196" r="7.5" fill="url(#paint34_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="440" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="470" cy="196" r="7.5" fill="url(#paint35_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="470" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="530" cy="136" r="7.5" fill="url(#paint36_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="530" cy="136" r="1" fill="#000" fill-opacity=".4"/><path fill="#ff9d52" d="M590 75h120v2H590z"/><path fill="#ff9d52" d="M590 135h120v2H590z"/><path fill="#ff9d52" d="M590 195h120v2H590z"/><path fill="#4196d8" d="M649 74h2v120h-2z"/><path fill="#d34f4f" d="m710.805 134 1.414 1.414-56.568 56.569-1.415-1.414z"/><path fill="#d34f4f" d="M654.234 81.414 655.648 80l56.569 56.568-1.415 1.415z"/><path fill="#d34f4f" d="m589.234 137 1.414-1.414 56.569 56.568-1.414 1.415z"/><path fill="#d34f4f" d="M646.086 78.586 647.5 80l-56.568 56.569-1.415-1.414z"/><path fill="#ff9d52" d="M589 74h2v120h-2z"/><path fill="#ff9d52" d="M709 74h2v120h-2z"/><circle cx="590" cy="76" r="7.5" fill="url(#paint37_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="590" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="620" cy="76" r="7.5" fill="url(#paint38_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="620" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="650" cy="76" r="7.5" fill="url(#paint39_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="650" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="680" cy="76" r="7.5" fill="url(#paint40_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="680" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="710" cy="76" r="7.5" fill="url(#paint41_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="710" cy="76" r="1" fill="#000" fill-opacity=".4"/><circle cx="620" cy="136" r="7.5" fill="url(#paint42_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="620" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="680" cy="136" r="7.5" fill="url(#paint43_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="680" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="650" cy="136" r="7.5" fill="url(#paint44_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="650" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="710" cy="106" r="7.5" fill="url(#paint45_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="710" cy="106" r="1" fill="#000" fill-opacity=".4"/><circle cx="590" cy="106" r="7.5" fill="url(#paint46_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="590" cy="106" r="1" fill="#000" fill-opacity=".4"/><circle cx="710" cy="136" r="7.5" fill="url(#paint47_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="710" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="590" cy="136" r="7.5" fill="url(#paint48_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="590" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="710" cy="166" r="7.5" fill="url(#paint49_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="710" cy="166" r="1" fill="#000" fill-opacity=".4"/><circle cx="590" cy="166" r="7.5" fill="url(#paint50_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="590" cy="166" r="1" fill="#000" fill-opacity=".4"/><path fill="#ff9d52" d="M59 134h2v250h-2z"/><path fill="#ffce52" d="m113.195 199.129-1.543 1.273-50.92-61.702 1.543-1.273z"/><path fill="#ffce52" d="m59.54 137.977-1.543-1.273 50.918-61.703 1.543 1.273z"/><path fill="#ffce52" d="m60.54 256.977-1.543-1.273 50.918-61.703 1.543 1.273z"/><path fill="#ffce52" d="m61.54 375.977-1.543-1.273 50.918-61.703 1.543 1.273z"/><path fill="#ffce52" d="m113.195 439.129-1.543 1.273-50.92-61.702 1.543-1.273z"/><path fill="#ffce52" d="m113.195 319.129-1.543 1.273-50.92-61.702 1.543-1.273z"/><circle cx="60" cy="136" r="7.5" fill="url(#paint51_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="60" cy="136" r="1" fill="#000" fill-opacity=".4"/><circle cx="60" cy="376" r="7.5" fill="url(#paint52_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="60" cy="376" r="1" fill="#000" fill-opacity=".4"/><circle cx="60" cy="256" r="7.5" fill="url(#paint53_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="60" cy="256" r="1" fill="#000" fill-opacity=".4"/><path fill="#ff9d52" d="M761.461 367.383h-2v-230h2z"/><path fill="#ffce52" d="m758.922 375.402 1.543 1.273-50.919 61.703-1.543-1.273z"/><path fill="#ffce52" d="m757.922 256.402 1.543 1.273-50.919 61.703-1.543-1.273z"/><path fill="#ffce52" d="m756.922 137.406 1.543 1.273-50.919 61.703-1.543-1.273z"/><path fill="#ffce52" d="m707.266 192.25 1.543-1.273 50.919 61.703-1.543 1.273z"/><circle cx="110" cy="196" r="7.5" fill="url(#paint54_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="110" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="140" cy="196" r="7.5" fill="url(#paint55_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="140" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="170" cy="196" r="7.5" fill="url(#paint56_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="170" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="200" cy="196" r="7.5" fill="url(#paint57_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="200" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="230" cy="196" r="7.5" fill="url(#paint58_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="230" cy="196" r="1" fill="#000" fill-opacity=".4"/><path fill="#ffce52" d="m707.266 312.25 1.543-1.273 50.919 61.703-1.543 1.273z"/><path fill="#ffce52" d="m707.266 72.254 1.543-1.273 50.919 61.703-1.543 1.273z"/><path fill="#ffce52" d="m707.266 72.254 1.543-1.273 50.919 61.703-1.543 1.273z"/><circle cx="760.461" cy="375.379" r="7.5" fill="url(#paint59_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 760.461 375.379)"/><circle cx="760.461" cy="375.379" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 760.461 375.379)"/><circle cx="760.461" cy="255.379" r="7.5" fill="url(#paint60_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 760.461 255.379)"/><circle cx="760.461" cy="255.379" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 760.461 255.379)"/><circle cx="760.461" cy="135.383" r="7.5" fill="url(#paint61_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 760.461 135.383)"/><circle cx="760.461" cy="135.383" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 760.461 135.383)"/><circle cx="140" cy="46" r="7.5" fill="url(#paint62_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="140" cy="46" r="1" fill="#000" fill-opacity=".4"/><circle cx="380" cy="46" r="7.5" fill="url(#paint63_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="380" cy="46" r="1" fill="#000" fill-opacity=".4"/><circle cx="620" cy="46" r="7.5" fill="url(#paint64_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="620" cy="46" r="1" fill="#000" fill-opacity=".4"/><circle cx="200" cy="46" r="7.5" fill="url(#paint65_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="200" cy="46" r="1" fill="#000" fill-opacity=".4"/><circle cx="440" cy="46" r="7.5" fill="url(#paint66_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="440" cy="46" r="1" fill="#000" fill-opacity=".4"/><circle cx="680" cy="46" r="7.5" fill="url(#paint67_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="680" cy="46" r="1" fill="#000" fill-opacity=".4"/><path fill="#ffce52" d="m201.148 466-1.414 1.414-33.941-33.94 1.414-1.415z"/><path fill="#ffce52" d="M140.203 467.414 138.789 466l33.94-33.941 1.415 1.414z"/><path fill="#73bb83" d="M587 437H467v-2h120z"/><path fill="#73bb83" d="M357 437H237v-2h120z"/><path fill="#73bb83" d="M587 317H467v-2h120z"/><path fill="#73bb83" d="M357 317H237v-2h120z"/><path fill="#ff9d52" d="M710 437H590v-2h120z"/><path fill="#ff9d52" d="M680 467h-60v-2h60z"/><path fill="#ff9d52" d="M440 467h-60v-2h60z"/><path fill="#ff9d52" d="M200 467h-60v-2h60z"/><path fill="#ff9d52" d="M710 377H590v-2h120z"/><path fill="#ff9d52" d="M710 317H590v-2h120z"/><path fill="#4196d8" d="M651 438h-2V318h2z"/><path fill="#d34f4f" d="m589.195 378-1.414-1.414 63.64-63.64 1.414 1.414z"/><path fill="#d34f4f" d="M645.766 431.586 644.352 433l-56.569-56.568 1.414-1.415z"/><path fill="#d34f4f" d="M584.766 429.586 583.352 431 470.215 317.863l1.414-1.414z"/><path fill="#d34f4f" d="M346.766 431.586 345.352 433 225.144 312.792l1.414-1.414z"/><path fill="#d34f4f" d="m710.766 375-1.414 1.414-56.569-56.568 1.414-1.415z"/><path fill="#d34f4f" d="M652.195 436.414 650.781 435l56.568-56.569 1.415 1.414z"/><path fill="#ffce52" d="M680.203 467.414 678.789 466l33.94-33.941 1.415 1.414z"/><path fill="#ffce52" d="m681.148 466-1.414 1.414-33.941-33.94 1.414-1.415z"/><path fill="#ffce52" d="m441.148 466-1.414 1.414-33.941-33.94 1.414-1.415z"/><path fill="#ffce52" d="m621.156 466-1.414 1.414-33.941-33.94 1.414-1.415z"/><path fill="#ffce52" d="m381.156 466-1.414 1.414-33.941-33.94 1.414-1.415z"/><path fill="#ffce52" d="m141.156 466-1.414 1.414-33.941-33.94 1.414-1.415z"/><path fill="#ffce52" d="M620.203 467.414 618.789 466l33.94-33.941 1.415 1.414z"/><path fill="#ffce52" d="M440.203 467.414 438.789 466l33.94-33.941 1.415 1.414z"/><path fill="#ffce52" d="M380.203 467.414 378.789 466l33.94-33.941 1.415 1.414z"/><path fill="#ffce52" d="M200.203 467.414 198.789 466l33.94-33.941 1.415 1.414z"/><path fill="#d34f4f" d="M471.195 436.414 469.781 435l120.208-120.208 1.414 1.414z"/><path fill="#d34f4f" d="M231.195 436.414 229.781 435l120.208-120.208 1.414 1.414z"/><path fill="#ff9d52" d="M711 438h-2V318h2z"/><path fill="#ff9d52" d="M591 438h-2V318h2z"/><circle cx="710" cy="436" r="7.5" fill="url(#paint68_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 710 436)"/><circle cx="710" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 710 436)"/><circle cx="680" cy="436" r="7.5" fill="url(#paint69_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 680 436)"/><circle cx="680" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 680 436)"/><circle cx="650" cy="436" r="7.5" fill="url(#paint70_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 650 436)"/><circle cx="650" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 650 436)"/><circle cx="620" cy="436" r="7.5" fill="url(#paint71_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 620 436)"/><circle cx="620" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 620 436)"/><circle cx="590" cy="436" r="7.5" fill="url(#paint72_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 590 436)"/><circle cx="590" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 590 436)"/><circle cx="680" cy="376" r="7.5" fill="url(#paint73_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 680 376)"/><circle cx="680" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 680 376)"/><circle cx="620" cy="376" r="7.5" fill="url(#paint74_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 620 376)"/><circle cx="620" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 620 376)"/><circle cx="650" cy="376" r="7.5" fill="url(#paint75_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 650 376)"/><circle cx="650" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 650 376)"/><circle cx="590" cy="406" r="7.5" fill="url(#paint76_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 590 406)"/><circle cx="590" cy="406" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 590 406)"/><circle cx="710" cy="406" r="7.5" fill="url(#paint77_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 710 406)"/><circle cx="710" cy="406" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 710 406)"/><circle cx="590" cy="376" r="7.5" fill="url(#paint78_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 590 376)"/><circle cx="590" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 590 376)"/><circle cx="710" cy="376" r="7.5" fill="url(#paint79_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 710 376)"/><circle cx="710" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 710 376)"/><circle cx="590" cy="346" r="7.5" fill="url(#paint80_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 590 346)"/><circle cx="590" cy="346" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 590 346)"/><circle cx="710" cy="346" r="7.5" fill="url(#paint81_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 710 346)"/><circle cx="710" cy="346" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 710 346)"/><circle cx="710" cy="316" r="7.5" fill="url(#paint82_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 710 316)"/><circle cx="710" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 710 316)"/><circle cx="680" cy="316" r="7.5" fill="url(#paint83_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 680 316)"/><circle cx="680" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 680 316)"/><circle cx="650" cy="316" r="7.5" fill="url(#paint84_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 650 316)"/><circle cx="650" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 650 316)"/><circle cx="620" cy="316" r="7.5" fill="url(#paint85_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 620 316)"/><circle cx="620" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 620 316)"/><circle cx="590" cy="316" r="7.5" fill="url(#paint86_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 590 316)"/><circle cx="590" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 590 316)"/><circle cx="530" cy="376" r="7.5" fill="url(#paint87_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 530 376)"/><circle cx="530" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 530 376)"/><path fill="#ff9d52" d="M470 437H350v-2h120z"/><path fill="#ff9d52" d="M470 377H350v-2h120z"/><path fill="#ff9d52" d="M470 317H350v-2h120z"/><path fill="#4196d8" d="M411 438h-2V318h2z"/><path fill="#d34f4f" d="m349.195 378-1.414-1.414 56.568-56.569 1.415 1.414z"/><path fill="#d34f4f" d="M405.766 430.586 404.352 432l-56.569-56.568 1.414-1.415z"/><path fill="#d34f4f" d="m470.766 375-1.414 1.414-56.569-56.568 1.414-1.415z"/><path fill="#d34f4f" d="M411.211 436.414 409.797 435l56.568-56.569 1.415 1.414z"/><path fill="#ff9d52" d="M471 438h-2V318h2z"/><path fill="#ff9d52" d="M351 438h-2V318h2z"/><circle cx="470" cy="436" r="7.5" fill="url(#paint88_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 470 436)"/><circle cx="470" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 470 436)"/><circle cx="440" cy="436" r="7.5" fill="url(#paint89_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 440 436)"/><circle cx="440" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 440 436)"/><circle cx="410" cy="436" r="7.5" fill="url(#paint90_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 410 436)"/><circle cx="410" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 410 436)"/><circle cx="380" cy="436" r="7.5" fill="url(#paint91_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 380 436)"/><circle cx="380" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 380 436)"/><circle cx="350" cy="436" r="7.5" fill="url(#paint92_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 350 436)"/><circle cx="350" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 350 436)"/><circle cx="440" cy="376" r="7.5" fill="url(#paint93_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 440 376)"/><circle cx="440" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 440 376)"/><circle cx="380" cy="376" r="7.5" fill="url(#paint94_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 380 376)"/><circle cx="380" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 380 376)"/><circle cx="410" cy="376" r="7.5" fill="url(#paint95_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 410 376)"/><circle cx="410" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 410 376)"/><circle cx="350" cy="406" r="7.5" fill="url(#paint96_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 350 406)"/><circle cx="350" cy="406" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 350 406)"/><circle cx="470" cy="406" r="7.5" fill="url(#paint97_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 470 406)"/><circle cx="470" cy="406" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 470 406)"/><circle cx="350" cy="376" r="7.5" fill="url(#paint98_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 350 376)"/><circle cx="350" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 350 376)"/><circle cx="470" cy="376" r="7.5" fill="url(#paint99_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 470 376)"/><circle cx="470" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 470 376)"/><circle cx="350" cy="346" r="7.5" fill="url(#paint100_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 350 346)"/><circle cx="350" cy="346" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 350 346)"/><circle cx="470" cy="346" r="7.5" fill="url(#paint101_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 470 346)"/><circle cx="470" cy="346" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 470 346)"/><circle cx="470" cy="316" r="7.5" fill="url(#paint102_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 470 316)"/><circle cx="470" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 470 316)"/><circle cx="440" cy="316" r="7.5" fill="url(#paint103_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 440 316)"/><circle cx="440" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 440 316)"/><circle cx="410" cy="316" r="7.5" fill="url(#paint104_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 410 316)"/><circle cx="410" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 410 316)"/><circle cx="380" cy="316" r="7.5" fill="url(#paint105_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 380 316)"/><circle cx="380" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 380 316)"/><circle cx="350" cy="316" r="7.5" fill="url(#paint106_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 350 316)"/><circle cx="350" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 350 316)"/><circle cx="290" cy="376" r="7.5" fill="url(#paint107_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 290 376)"/><circle cx="290" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 290 376)"/><path fill="#ff9d52" d="M230 437H110v-2h120z"/><path fill="#ff9d52" d="M230 377H110v-2h120z"/><path fill="#ff9d52" d="M230 317H110v-2h120z"/><path fill="#4196d8" d="M171 438h-2V318h2z"/><path fill="#d34f4f" d="m109.195 378-1.414-1.414 56.568-56.569 1.415 1.414z"/><path fill="#d34f4f" d="M165.766 430.586 164.352 432l-56.569-56.568 1.414-1.415z"/><path fill="#d34f4f" d="m230.766 375-1.414 1.414-56.569-56.568 1.414-1.415z"/><path fill="#d34f4f" d="M173.914 433.414 172.5 432l56.568-56.569 1.415 1.414z"/><path fill="#ff9d52" d="M231 438h-2V318h2z"/><path fill="#ff9d52" d="M111 438h-2V318h2z"/><circle cx="230" cy="436" r="7.5" fill="url(#paint108_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 230 436)"/><circle cx="230" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 230 436)"/><circle cx="200" cy="436" r="7.5" fill="url(#paint109_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 200 436)"/><circle cx="200" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 200 436)"/><circle cx="170" cy="436" r="7.5" fill="url(#paint110_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 170 436)"/><circle cx="170" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 170 436)"/><circle cx="140" cy="436" r="7.5" fill="url(#paint111_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 140 436)"/><circle cx="140" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 140 436)"/><circle cx="110" cy="436" r="7.5" fill="url(#paint112_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 110 436)"/><circle cx="110" cy="436" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 110 436)"/><circle cx="200" cy="376" r="7.5" fill="url(#paint113_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 200 376)"/><circle cx="200" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 200 376)"/><circle cx="140" cy="376" r="7.5" fill="url(#paint114_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 140 376)"/><circle cx="140" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 140 376)"/><circle cx="170" cy="376" r="7.5" fill="url(#paint115_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 170 376)"/><circle cx="170" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 170 376)"/><circle cx="110" cy="406" r="7.5" fill="url(#paint116_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 110 406)"/><circle cx="110" cy="406" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 110 406)"/><circle cx="230" cy="406" r="7.5" fill="url(#paint117_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 230 406)"/><circle cx="230" cy="406" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 230 406)"/><circle cx="110" cy="376" r="7.5" fill="url(#paint118_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 110 376)"/><circle cx="110" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 110 376)"/><circle cx="230" cy="376" r="7.5" fill="url(#paint119_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 230 376)"/><circle cx="230" cy="376" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 230 376)"/><circle cx="110" cy="346" r="7.5" fill="url(#paint120_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 110 346)"/><circle cx="110" cy="346" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 110 346)"/><circle cx="230" cy="346" r="7.5" fill="url(#paint121_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 230 346)"/><circle cx="230" cy="346" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 230 346)"/><circle cx="230" cy="316" r="7.5" fill="url(#paint122_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 230 316)"/><circle cx="230" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 230 316)"/><circle cx="200" cy="316" r="7.5" fill="url(#paint123_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 200 316)"/><circle cx="200" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 200 316)"/><circle cx="170" cy="316" r="7.5" fill="url(#paint124_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 170 316)"/><circle cx="170" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 170 316)"/><circle cx="140" cy="316" r="7.5" fill="url(#paint125_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 140 316)"/><circle cx="140" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 140 316)"/><circle cx="110" cy="316" r="7.5" fill="url(#paint126_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 110 316)"/><circle cx="110" cy="316" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 110 316)"/><circle cx="680" cy="466" r="7.5" fill="url(#paint127_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 680 466)"/><circle cx="680" cy="466" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 680 466)"/><circle cx="440" cy="466" r="7.5" fill="url(#paint128_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 440 466)"/><circle cx="440" cy="466" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 440 466)"/><circle cx="200" cy="466" r="7.5" fill="url(#paint129_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 200 466)"/><circle cx="200" cy="466" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 200 466)"/><circle cx="620" cy="466" r="7.5" fill="url(#paint130_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 620 466)"/><circle cx="620" cy="466" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 620 466)"/><circle cx="380" cy="466" r="7.5" fill="url(#paint131_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 380 466)"/><circle cx="380" cy="466" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 380 466)"/><circle cx="140" cy="466" r="7.5" fill="url(#paint132_radial_781_319508-tinker-cover-svg)" stroke="#fff" transform="rotate(-180 140 466)"/><circle cx="140" cy="466" r="1" fill="#000" fill-opacity=".4" transform="rotate(-180 140 466)"/><circle cx="590" cy="196" r="7.5" fill="url(#paint133_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="590" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="620" cy="196" r="7.5" fill="url(#paint134_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="620" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="650" cy="196" r="7.5" fill="url(#paint135_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="650" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="680" cy="196" r="7.5" fill="url(#paint136_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="680" cy="196" r="1" fill="#000" fill-opacity=".4"/><circle cx="710" cy="196" r="7.5" fill="url(#paint137_radial_781_319508-tinker-cover-svg)" stroke="#fff"/><circle cx="710" cy="196" r="1" fill="#000" fill-opacity=".4"/><defs><radialGradient id="paint0_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 17 93)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint1_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 32 108)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint2_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 47 123)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint3_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 62 138)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint4_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 77 153)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint5_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 2 138)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint6_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 32 168)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint7_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 17 153)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint8_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 62 168)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint9_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 2 108)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint10_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 47 183)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint11_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -13 123)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint12_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 32 198)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint13_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -28 138)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint14_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 77 213)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint15_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 17 273)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint16_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 137 393)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint17_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 350 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint18_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 380 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint19_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 410 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint20_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 440 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint21_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 470 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint22_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 122 258)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint23_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 152 288)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint24_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 137 273)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint25_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 182 288)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint26_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 122 228)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint27_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 167 303)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint28_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 107 243)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint29_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 152 318)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint30_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 92 258)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint31_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 77 273)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint32_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 92 288)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint33_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 107 303)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint34_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 122 318)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint35_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 137 333)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint36_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 197 333)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint37_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 590 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint38_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 620 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint39_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 650 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint40_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 680 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint41_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 710 76)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint42_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 242 378)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint43_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 272 408)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint44_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 257 393)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint45_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 302 408)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint46_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 242 348)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint47_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 287 423)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint48_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 227 363)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint49_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 272 438)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint50_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 212 378)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint51_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -38 98)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint52_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 60 376)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint53_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 60 256)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint54_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -43 153)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint55_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -28 168)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint56_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -13 183)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint57_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 2 198)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint58_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 17 213)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint59_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 192.541 567.92)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint60_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 252.541 507.92)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint61_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 312.539 447.922)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint62_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 47 93)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint63_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 380 46)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint64_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 620 46)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint65_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 77 123)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint66_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 440 46)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint67_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 680 46)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint68_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 137 573)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint69_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 122 558)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint70_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 107 543)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint71_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 92 528)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint72_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 77 513)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint73_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 152 528)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint74_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 122 498)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint75_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 137 513)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint76_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 92 498)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint77_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 152 558)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint78_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 107 483)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint79_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 167 543)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint80_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 122 468)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint81_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 182 528)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint82_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 197 513)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint83_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 182 498)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint84_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 167 483)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint85_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 152 468)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint86_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 137 453)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint87_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 77 453)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint88_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 17 453)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint89_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 2 438)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint90_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -13 423)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint91_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -28 408)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint92_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -43 393)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint93_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 32 408)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint94_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 2 378)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint95_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 17 393)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint96_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -28 378)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint97_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 32 438)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint98_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -13 363)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint99_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 47 423)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint100_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 2 348)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint101_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 62 408)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint102_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 77 393)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint103_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 62 378)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint104_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 47 363)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint105_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 32 348)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint106_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 17 333)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint107_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -43 333)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint108_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 230 436)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint109_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 200 436)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint110_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 170 436)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint111_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 140 436)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint112_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 110 436)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint113_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -88 288)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint114_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 140 376)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint115_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 170 376)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint116_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 110 406)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint117_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -88 318)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint118_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 110 376)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint119_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -73 303)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint120_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 110 346)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint121_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -58 288)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint122_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -43 273)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint123_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -58 258)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint124_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -73 243)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint125_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -88 228)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint126_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 110 316)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint127_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 107 573)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint128_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -13 453)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint129_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 200 466)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint130_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 77 543)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint131_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 -43 423)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint132_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="matrix(0 7.5 -7.5 0 140 466)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint133_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 197 393)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint134_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 212 408)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint135_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 227 423)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint136_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 242 438)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient><radialGradient id="paint137_radial_781_319508-tinker-cover-svg" cx="0" cy="0" r="1" gradientTransform="rotate(90 257 453)scale(7.5)" gradientUnits="userSpaceOnUse"><stop stop-color="#b39351"/><stop offset="1" stop-color="#ffecc4"/></radialGradient></defs></svg>
+
+    
+  </div>
+  
+
+  
+
+  <article class="content ">
+    
+    <nav id="left-toc" class="left-toc" aria-label="Table of contents"></nav>
+    
+    <p class="image-caption" style="text-align: center; margin-top: -1rem; margin-bottom: 2rem; font-size: 0.9rem; color: var(--fg-muted, #666);">
+  <a href="https://www.computerhistory.org/collections/catalog/X39.81/" target="_blank" rel="noopener">TinkerToy Computer</a> invented by <a href="https://en.wikipedia.org/wiki/Danny_Hillis" target="_blank" rel="noopener">Daniel Hillis</a> and <a href="https://en.wikipedia.org/wiki/Brian_Silverman" target="_blank" rel="noopener">Brian Silverman</a>
+</p>
+<p>Today, we are launching <a href="https://thinkingmachines.ai/tinker">Tinker</a>, a flexible API for fine-tuning language models. It empowers researchers and hackers to experiment with models by giving them control over the algorithms and data while we handle the complexity of distributed training. Tinker advances our mission of enabling more people to do research on cutting-edge models and customize them to their needs.</p>
+<p>Tinker lets you fine-tune a range of large and small open-weight models, including large mixture-of-experts models such as Qwen-235B-A22B. Switching from a small model to a large one is as simple as changing a single string in your Python code.</p>
+<p>Tinker is a managed service that runs on our internal clusters and training infrastructure. We handle scheduling, resource allocation, and failure recovery. This allows you to get small or large runs started immediately, without worrying about managing infrastructure. We use LoRA so that we can share the same pool of compute between multiple training runs, lowering costs.</p>
+<p>Tinker&rsquo;s API gives you low-level primitives like <code>forward_backward</code> and <code>sample</code>, which can be used to express most common post-training methods. Even so, achieving good results requires getting many details right. That&rsquo;s why we&rsquo;re releasing an open-source library, the <a href="http://github.com/thinking-machines-lab/tinker-cookbook">Tinker Cookbook</a>, with modern implementations of post-training methods that run on top of the Tinker API.</p>
+<p>Groups at Princeton, Stanford, Berkeley, and Redwood Research have already been using Tinker:</p>
+<ul>
+<li>The <a href="https://blog.goedel-prover.com/">Princeton Goedel Team</a> trained mathematical theorem provers</li>
+<li>The <a href="https://statmech.stanford.edu/">Rotskoff Chemistry group</a> at Stanford fine-tuned a model to complete chemistry reasoning tasks</li>
+<li><a href="https://sky.cs.berkeley.edu/project/skyrl/">Berkeley’s SkyRL group</a> ran experiments on a custom async off-policy RL training loop with multi-agents and multi-turn tool-use.</li>
+<li><a href="https://www.redwoodresearch.org/">Redwood Research</a> used Tinker to RL Qwen3-32B on difficult AI control tasks</li>
+</ul>
+<p>Tinker is now in private beta for researchers and developers. You can sign up for the Tinker waitlist <a href="https://thinkingmachines.ai/tinker">here</a>. We will be onboarding users to the platform starting today.</p>
+<p>If you’re an organization interested in using Tinker, please contact us <a href="/cdn-cgi/l/email-protection#1e6a7770757b6c5e6a76777075777079737f7d7677707b6d307f77">here</a>.</p>
+<p>Tinker will be free to start. We will introduce usage-based pricing in the coming weeks.</p>
+<p>We’re excited to see what you discover and make with Tinker!</p>
+
+    
+  </article>
+
+  <div class="paginator">
+    
+    <a class="link" href="https://thinkingmachines.ai/blog/lora/" title="LoRA Without Regret">prev</a>
+    
+
+    <a href="#" id="back-to-top" class="link" title="Go to top">back to top</a>
+
+    
+    <a class="link" href="https://thinkingmachines.ai/blog/on-policy-distillation/" title="On-Policy Distillation">next</a>
+    
+  </div>
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      const prevLink = document.querySelector('.paginator a:first-child');
+      const nextLink = document.querySelector('.paginator a:last-child');
+
+      const prevUrl = prevLink && prevLink.href !== window.location.href ? prevLink.href : null;
+      const nextUrl = nextLink && nextLink.href !== window.location.href ? nextLink.href : null;
+
+      
+      document.addEventListener('keydown', function(e) {
+        
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+          return;
+        }
+
+        
+        if (e.keyCode === 37 && prevUrl) {
+          e.preventDefault();
+          window.location.href = prevUrl;
+        }
+
+        
+        if (e.keyCode === 39 && nextUrl) {
+          e.preventDefault();
+          window.location.href = nextUrl;
+        }
+      });
+    });
+  </script>
+  
+
+  
+  
+</main>
+
+    <footer id="footer">
+  <div>
+    <span><a href="/">Thinking Machines Lab</a> © 2025</span><span class="footer-separator" id="first-footer-separator">·</span><span><a href="/legal/terms">Terms of service</a></span><span class="footer-separator">·</span><span><a href="/legal/privacy">Privacy notice</a></span>
+  </div>
+</footer>
+  </div>
+
+  
+  
+  <script src="/js/script.min.4093dc550c9ad99ac0e65f35825652be69a5baa12f3740fed8f70266298353f6.js" integrity="sha256-QJPcVQya2ZrA5l81glZSvmmluqEvN0D&#43;2PcCZimDU/Y=" defer></script>
+
+  
+  
+
+  
+  
+
+  
+  
+
+</body>
+
+</html>

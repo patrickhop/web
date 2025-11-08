@@ -1,0 +1,22 @@
+<svg width="660" height="130" viewBox="0 0 660 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="660" height="130" fill="#F5F5F5"/>
+<rect width="660" height="130" fill="white"/>
+<text fill="#878787" xml:space="preserve" style="white-space: pre" font-family="Iowan Old Style BT" font-size="18.72" font-style="italic" letter-spacing="0em"><tspan x="175.48" y="70.693">prompt</tspan></text>
+<g filter="url(#filter0_d_861_19346)">
+<rect x="245.4" y="43" width="240.48" height="43.2" rx="5.76" fill="white" shape-rendering="crispEdges"/>
+<rect x="246.12" y="43.72" width="239.04" height="41.76" rx="5.04" stroke="black" stroke-opacity="0.16" stroke-width="1.44" shape-rendering="crispEdges"/>
+<text fill="black" xml:space="preserve" style="white-space: pre" font-family="Iowan Old Style BT" font-size="21.6" letter-spacing="0em"><tspan x="262.64" y="71.6304">What is 5 + (2 &#xd7; 3)?</tspan></text>
+</g>
+<defs>
+<filter id="filter0_d_861_19346" x="242.52" y="41.56" width="246.24" height="48.9602" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1.44"/>
+<feGaussianBlur stdDeviation="1.44"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_861_19346"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_861_19346" result="shape"/>
+</filter>
+</defs>
+</svg>
