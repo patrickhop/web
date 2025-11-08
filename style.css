@@ -14,7 +14,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20px;
+  padding: 20px 40px;
 }
 header h1 {
   font-size: 18px;
@@ -29,7 +29,7 @@ nav {
 }
 main {
   max-width: 680px;
-  margin: 0 auto;
+  margin: 40px auto 0;
   padding: 0 24px 75px;
 }
 h2 {
@@ -58,6 +58,7 @@ nav a {
   color: black;
   text-decoration: none;
   padding: 5px;
+  white-space: nowrap;
 }
 nav a:hover {
   text-decoration: underline;
@@ -104,7 +105,7 @@ nav a:hover {
   text-decoration: underline;
 }
 .main-header {
-  padding: 12.8px 20px 32px;
+  padding: 12.8px 40px 32px;
 }
 .main-header nav {
   position: static;

@@ -33,7 +33,7 @@
       fetch('blogs/blog-post-2.md')
         .then(response => response.text())
         .then(text => {
-          const converter = new showdown.Converter();
+          const converter = new showdown.Converter({ tables: true });
           const html = converter.makeHtml(text);
           document.getElementById('post-content').innerHTML = html;
         });
