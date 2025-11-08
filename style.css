@@ -13,10 +13,10 @@ body {
 header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 20px 40px;
   max-width: 960px;
   margin: 0 auto;
-  position: relative;
 }
 header h1 {
   font-size: 22px;
@@ -27,9 +27,6 @@ header h1 {
   text-transform: uppercase;
 }
 nav {
-  position: absolute;
-  top: 30px;
-  right: 0px;
 }
 main {
   max-width: 680px;
@@ -68,14 +65,14 @@ nav a:hover {
 .section {
   margin-top: 16px;
 }
-.blog-subtitle {
+div.blog-subtitle {
   font-style: italic;
   color: #666;
   margin-bottom: 40px;
   text-align: left;
 }
 
-.blog-main-title {
+h2.blog-main-title {
   text-align: left;
 }
 .post {
@@ -94,6 +91,7 @@ nav a:hover {
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 4px;
+  text-decoration: none;
 }
 .post-author {
   color: #555;
@@ -102,8 +100,7 @@ nav a:hover {
   text-decoration: underline;
 }
 .main-header {
-  justify-content: center;
-  padding: 80px 40px;
+  justify-content: space-between;
 }
 .blog-header {
   justify-content: space-between;
@@ -111,9 +108,6 @@ nav a:hover {
   padding-bottom: 20px;
 }
 
-.blog-header nav {
-  position: static;
-}
 
 .blog-logo {
   font-size: 18px;
@@ -122,5 +116,5 @@ nav a:hover {
 
 .main-page-title {
   font-size: 24px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
