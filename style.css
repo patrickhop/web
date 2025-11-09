@@ -147,8 +147,9 @@ nav a:hover {
 
 .main-page-title {
   font-size: 20.4px;
-  margin-bottom: 7px;
-  font-weight: bold;
+  margin-top: 30px; /* Reduced from 40px on h2 */
+  margin-bottom: 5px; /* Reduced from 7px */
+  font-weight: 600; /* Less bold than 'bold' (700) */
 }
 
 pre {
@@ -180,6 +181,10 @@ pre {
 
   .post-content {
     margin-left: 0;
+  }
+
+  .job-title {
+    white-space: normal; /* Allow job title to wrap on mobile */
   }
 }
 
