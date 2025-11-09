@@ -106,14 +106,15 @@ nav a:hover {
 .post-date {
   color: #666;
   flex: 0 0 120px;
+  font-size: 16px;
 }
 .post-content {
   flex: 1;
   margin-left: 20px;
 }
 .post-title {
-  font-weight: 550;
-  font-size: 18px;
+  font-weight: 500;
+  font-size: 17px;
   margin-bottom: 4px;
   text-decoration: none;
 }
