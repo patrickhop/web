@@ -38,3 +38,5 @@ print(generated_text)
 | **Alpha Release**     | Q1 2026     |
 | **Beta Release**      | Q3 2026     |
 | **Public Launch**     | Q1 2027     |
+
+Here is the formula for the probability density function of a normal distribution: $f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}$
