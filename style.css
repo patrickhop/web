@@ -147,6 +147,15 @@ nav a:hover {
   margin-bottom: 7px;
 }
 
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: auto;
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 4px;
+}
+
 @media (max-width: 768px) {
   main {
     padding: 0 20px 50px;
@@ -167,15 +176,6 @@ nav a:hover {
 
   .post-content {
     margin-left: 0;
-  }
-
-  pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-x: auto;
-    background-color: #f5f5f5;
-    padding: 15px;
-    border-radius: 4px;
   }
 }
 
