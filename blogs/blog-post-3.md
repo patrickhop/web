@@ -37,3 +37,5 @@ print("Model loaded successfully!")
 | **TML Hub**           | A platform for sharing and collaborating on models.|
 | **Open-Model-v1**     | Our first open-source large language model.       |
 | **AI Toolkit**        | A collection of tools for building AI applications.|
+
+And here's a more complex equation, the Schrödinger equation: $i\hbar\frac{\partial}{\partial t}\Psi(x,t) = [-\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2} + V(x,t)]\Psi(x,t)$

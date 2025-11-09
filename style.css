@@ -39,7 +39,7 @@ header h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 300% 300%;
-  animation: pulse 5s ease-in-out infinite;
+  animation: pulse 10s ease-in-out infinite;
 }
 nav {
   display: flex;
@@ -194,4 +194,26 @@ th, td {
 
 th {
   background-color: #f2f2f2;
+}
+
+.job-listings {
+  margin-top: 20px;
+}
+
+.job-listing {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.job-title {
+  text-decoration: none;
+}
+
+.job-title:hover {
+  text-decoration: underline;
+}
+
+.job-location {
+  color: #666;
 }

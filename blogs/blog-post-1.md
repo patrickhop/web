@@ -47,3 +47,5 @@ def simple_linear_regression(X, y):
 | **Collaboration**     | We believe in the power of working together.      |
 | **Rigor**             | We are committed to high-quality research.        |
 | **Impact**            | We aim to build AI that benefits humanity.        |
+
+And here is another example of a LaTeX equation: $\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$
