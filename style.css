@@ -35,7 +35,7 @@ header h1 {
   color: #888;
   margin: 0;
   text-transform: uppercase;
-  background: linear-gradient(45deg, red, blue, red);
+  background: linear-gradient(45deg, black, #d3d3d3, black);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 300% 300%;
@@ -81,7 +81,7 @@ nav a:hover {
   text-decoration: underline;
 }
 .section {
-  margin-top: 16px;
+  margin-top: 12.8px;
 }
 .blog-subtitle {
   font-style: italic;
@@ -173,5 +173,25 @@ nav a:hover {
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-x: auto;
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 4px;
   }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
 }
