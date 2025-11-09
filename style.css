@@ -58,6 +58,9 @@ h2 {
 p {
   margin-bottom: 20px;
 }
+.main-page p {
+  margin-bottom: 15px;
+}
 a {
   color: #333;
   text-decoration: underline;
@@ -109,7 +112,7 @@ nav a:hover {
   margin-left: 20px;
 }
 .post-title {
-  font-weight: 500;
+  font-weight: 550;
   font-size: 18px;
   margin-bottom: 4px;
   text-decoration: none;
@@ -145,6 +148,7 @@ nav a:hover {
 .main-page-title {
   font-size: 20.4px;
   margin-bottom: 7px;
+  font-weight: bold;
 }
 
 pre {
@@ -208,6 +212,7 @@ th {
 
 .job-title {
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .job-title:hover {
