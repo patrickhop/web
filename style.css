@@ -43,14 +43,9 @@ header h1 {
   font-size: 18px;
   font-weight: normal;
   letter-spacing: 0.2em;
-  color: #888;
+  color: black;
   margin: 0;
   text-transform: uppercase;
-  background: linear-gradient(45deg, black, #d3d3d3, black);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 300% 300%;
-  animation: pulse 10s ease-in-out infinite;
 }
 nav {
   display: flex;

@@ -26,7 +26,7 @@ models = tml_hub.list_models()
 print("Available models:", models)
 
 # Download and use a model
-model = tml_hub.load("thinking-machines/open-model-v1")
+model = tml_hub.load("draco-research/open-model-v1")
 print("Model loaded successfully!")
 ```
 
