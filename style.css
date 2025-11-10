@@ -233,3 +233,7 @@ th {
 .job-location {
   color: #666;
 }
+
+pre code.language-python {
+  font-size: 90%;
+}
