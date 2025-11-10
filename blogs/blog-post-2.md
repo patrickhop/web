@@ -1,6 +1,6 @@
-## Our Vision for Thinking Machines
+## Our Vision for Draco Research
 
-*In this post, we'll outline our vision for the future of Thinking Machines.*
+*In this post, we'll outline our vision for the future of Draco Research.*
 
 ### Building the Next Generation of AI
 
@@ -22,7 +22,7 @@ Here’s a Python snippet that showcases how we're making AI more accessible:
 from some_ai_library import TMLModel
 
 # Load a pre-trained model
-model = TMLModel.load("thinking-machines-alpha")
+model = TMLModel.load("draco-research-alpha")
 
 # Generate text based on a prompt
 prompt = "The future of AI is..."
