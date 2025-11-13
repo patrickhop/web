@@ -47,6 +47,9 @@ header h1 {
   margin: 0;
   text-transform: uppercase;
 }
+.logo-link {
+  text-decoration: none;
+}
 nav {
   display: flex;
 }
