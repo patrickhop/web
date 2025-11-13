@@ -12,7 +12,7 @@
 </head>
 <body>
   <header class="blog-header">
-    <a href="index.html" style="text-decoration: none;"><h1 class="blog-logo">DRACO RESEARCH</h1></a>
+    <a href="index.html" class="logo-link"><h1 class="blog-logo">DRACO RESEARCH</h1></a>
     <nav>
       <a href="blog.html">Blog</a>
       <a href="index.html#join-us">Join us</a>
@@ -21,7 +21,7 @@
 
   <main>
     <div class="post">
-      <div id="post-content" class="post-content">
+      <div id="post-content" class="post-content" data-markdown-file="blogs/blog-post-1.md">
         <!-- Markdown content will be rendered here -->
       </div>
     </div>
@@ -31,25 +31,6 @@
     Draco Research © 2025 · Terms of service · Privacy notice
   </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      fetch('blogs/blog-post-1.md')
-        .then(response => response.text())
-        .then(text => {
-          const converter = new showdown.Converter({
-            extensions: [
-              showdownKatex({
-                delimiters: [
-                  { left: '$', right: '$', display: false },
-                ]
-              })
-            ],
-            tables: true
-          });
-          const html = converter.makeHtml(text);
-          document.getElementById('post-content').innerHTML = html;
-        });
-    });
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
